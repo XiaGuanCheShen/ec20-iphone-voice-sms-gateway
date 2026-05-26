@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590">
+  <rect width="1200" height="590" fill="#f7f9fc"/>
+  <text x="54" y="56" font-size="30" font-family="Arial, sans-serif" fill="#14233b">Inbound SMS Routing</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="65" y="216" width="182" height="86" rx="8" fill="#fff" stroke="#a9b7c9" stroke-width="2"/>
+    <text x="99" y="254" font-size="20" fill="#17263e">EC20 SMS</text>
+    <text x="91" y="279" font-size="15" fill="#59677d">Asterisk event</text>
+    <path d="M247 259 L330 259" stroke="#1b8583" stroke-width="3"/>
+    <polygon points="324,253 339,259 324,265" fill="#1b8583"/>
+    <rect x="339" y="196" width="208" height="126" rx="8" fill="#eaf6f5" stroke="#1b8583" stroke-width="2"/>
+    <text x="375" y="237" font-size="20" fill="#17263e">Classifier</text>
+    <text x="365" y="266" font-size="15" fill="#42536a">OTP / urgent / service</text>
+    <text x="365" y="291" font-size="15" fill="#42536a">marketing / normal</text>
+
+    <rect x="668" y="77" width="277" height="86" rx="8" fill="#fff" stroke="#e18b31" stroke-width="2"/>
+    <text x="700" y="114" font-size="20" fill="#17263e">Bark encrypted alert</text>
+    <text x="700" y="140" font-size="15" fill="#59677d">OTP / urgent / normal</text>
+    <path d="M547 235 L668 121" stroke="#e18b31" stroke-width="3"/>
+
+    <rect x="668" y="229" width="277" height="103" rx="8" fill="#fff" stroke="#3376c6" stroke-width="2"/>
+    <text x="700" y="266" font-size="20" fill="#17263e">Feishu history</text>
+    <text x="700" y="292" font-size="15" fill="#59677d">Full text except OTP</text>
+    <text x="700" y="315" font-size="15" fill="#59677d">Marketing: history only</text>
+    <path d="M547 259 L668 279" stroke="#3376c6" stroke-width="3"/>
+
+    <rect x="668" y="397" width="277" height="86" rx="8" fill="#fff" stroke="#3a8c5b" stroke-width="2"/>
+    <text x="700" y="434" font-size="20" fill="#17263e">SQLite archive</text>
+    <text x="700" y="460" font-size="15" fill="#59677d">Long-term local storage</text>
+    <path d="M547 284 L668 437" stroke="#3a8c5b" stroke-width="3"/>
+
+    <rect x="990" y="239" width="170" height="82" rx="8" fill="#e9f1fc" stroke="#3376c6"/>
+    <text x="1015" y="274" font-size="18" fill="#17263e">7-day recall</text>
+    <text x="1009" y="299" font-size="14" fill="#59677d">bot messages only</text>
+    <path d="M945 280 L990 280" stroke="#3376c6" stroke-width="2"/>
+  </g>
+</svg>

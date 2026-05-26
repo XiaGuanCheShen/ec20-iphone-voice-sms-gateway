@@ -1,0 +1,3 @@
+FEISHU_APP_ID=cli_replace_with_app_id
+FEISHU_APP_SECRET=replace_with_app_secret
+FEISHU_BIND_CODE=replace_with_one_time_code

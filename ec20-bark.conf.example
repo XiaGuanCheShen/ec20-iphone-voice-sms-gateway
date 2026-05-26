@@ -1,0 +1,5 @@
+BARK_SERVER=https://api.day.app
+BARK_DEVICE_KEY=replace-with-your-bark-key
+# Enable only after the same AES-128-CBC values are set in Bark.
+# BARK_ENCRYPTION_KEY=replace-with-16-char-key
+# BARK_ENCRYPTION_IV=replace-with-16-char-iv

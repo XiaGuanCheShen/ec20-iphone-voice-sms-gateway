@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <rect width="1200" height="640" fill="#f6f8fb"/>
+  <text x="60" y="64" font-size="32" font-family="Arial, sans-serif" fill="#152238">EC20 iPhone Voice + SMS Gateway</text>
+  <text x="60" y="98" font-size="17" font-family="Arial, sans-serif" fill="#59677d">Public architecture diagram - no live address or credential is shown</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="70" y="172" width="210" height="160" rx="8" fill="#ffffff" stroke="#c7d1df" stroke-width="2"/>
+    <text x="100" y="215" font-size="22" fill="#152238">China SIM</text>
+    <text x="100" y="251" font-size="18" fill="#435269">EC20 LTE Module</text>
+    <text x="100" y="282" font-size="16" fill="#59677d">VoLTE + UAC audio</text>
+    <text x="100" y="309" font-size="16" fill="#59677d">USB pass-through</text>
+
+    <rect x="372" y="145" width="280" height="214" rx="8" fill="#ffffff" stroke="#237b78" stroke-width="3"/>
+    <text x="405" y="190" font-size="23" fill="#152238">Debian 11 Gateway</text>
+    <text x="405" y="228" font-size="17" fill="#435269">Asterisk + chan_quectel</text>
+    <text x="405" y="257" font-size="17" fill="#435269">SQLite SMS Archive</text>
+    <text x="405" y="286" font-size="17" fill="#435269">Bark + Feishu Service</text>
+    <text x="405" y="315" font-size="17" fill="#435269">IPv6 DDNS + Firewall</text>
+
+    <rect x="770" y="126" width="350" height="122" rx="8" fill="#ffffff" stroke="#d28b35" stroke-width="2"/>
+    <text x="803" y="168" font-size="22" fill="#152238">iPhone</text>
+    <text x="803" y="202" font-size="17" fill="#435269">Groundwire: voice call / Push ring</text>
+    <text x="803" y="228" font-size="17" fill="#435269">Bark: encrypted urgent SMS</text>
+
+    <rect x="770" y="295" width="350" height="122" rx="8" fill="#ffffff" stroke="#3775c5" stroke-width="2"/>
+    <text x="803" y="338" font-size="22" fill="#152238">Feishu Robot</text>
+    <text x="803" y="371" font-size="17" fill="#435269">History, search, quiet marketing</text>
+    <text x="803" y="397" font-size="17" fill="#435269">Confirm then send SMS</text>
+
+    <path d="M280 252 L372 252" stroke="#237b78" stroke-width="3"/>
+    <polygon points="370,246 385,252 370,258" fill="#237b78"/>
+    <text x="290" y="236" font-size="14" fill="#59677d">USB</text>
+
+    <path d="M652 198 L770 184" stroke="#d28b35" stroke-width="3"/>
+    <polygon points="764,179 780,183 766,190" fill="#d28b35"/>
+    <text x="670" y="173" font-size="14" fill="#59677d">SIP / RTP</text>
+
+    <path d="M652 290 L770 345" stroke="#3775c5" stroke-width="3"/>
+    <polygon points="762,338 778,349 759,349" fill="#3775c5"/>
+    <text x="661" y="334" font-size="14" fill="#59677d">WebSocket / API</text>
+  </g>
+  <rect x="70" y="500" width="1050" height="76" rx="6" fill="#eaf1f5"/>
+  <text x="97" y="545" font-size="18" font-family="Arial, sans-serif" fill="#435269">Only SIP/RTP needs public reachability. Bark and Feishu are outbound HTTPS/WebSocket connections.</text>
+</svg>

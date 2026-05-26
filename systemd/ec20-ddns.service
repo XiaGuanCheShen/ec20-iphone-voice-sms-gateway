@@ -1,0 +1,15 @@
+[Unit]
+Description=Update EC20 public IPv6 DNS record
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ec20-ddns
+User=root
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/ec20-ddns
+

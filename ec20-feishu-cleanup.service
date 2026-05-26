@@ -1,0 +1,10 @@
+[Unit]
+Description=Recall expired EC20 Feishu bot messages
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=asterisk
+Group=asterisk
+ExecStart=/usr/bin/python3 /usr/local/sbin/ec20-feishu-cleanup

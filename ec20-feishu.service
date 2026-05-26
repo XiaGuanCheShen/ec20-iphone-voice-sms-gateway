@@ -1,0 +1,15 @@
+[Unit]
+Description=EC20 Feishu SMS assistant
+After=network-online.target asterisk.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=asterisk
+Group=asterisk
+ExecStart=/usr/bin/python3 /usr/local/sbin/ec20-feishu-bot
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="560" viewBox="0 0 760 560">
+  <rect width="760" height="560" fill="#f5f7fa"/>
+  <text x="52" y="48" font-size="26" font-family="Arial, sans-serif" fill="#17243b">Groundwire account settings (example only)</text>
+  <rect x="86" y="78" width="588" height="422" rx="8" fill="#fff" stroke="#c7d1df"/>
+  <g font-family="Arial, sans-serif" font-size="18" fill="#16253b">
+    <text x="120" y="127">Username</text><text x="395" y="127" fill="#53637a">200</text>
+    <line x1="120" y1="145" x2="640" y2="145" stroke="#e3e8ee"/>
+    <text x="120" y="183">Password</text><text x="395" y="183" fill="#53637a">********</text>
+    <line x1="120" y1="201" x2="640" y2="201" stroke="#e3e8ee"/>
+    <text x="120" y="239">Domain</text><text x="395" y="239" fill="#53637a">sip.example.com:5160</text>
+    <line x1="120" y1="257" x2="640" y2="257" stroke="#e3e8ee"/>
+    <text x="120" y="295">Transport</text><text x="395" y="295" fill="#1b8583">TCP</text>
+    <line x1="120" y1="313" x2="640" y2="313" stroke="#e3e8ee"/>
+    <text x="120" y="351">Incoming calls</text><text x="395" y="351" fill="#1b8583">Push</text>
+    <line x1="120" y1="369" x2="640" y2="369" stroke="#e3e8ee"/>
+    <text x="120" y="407">NAT traversal</text><text x="395" y="407" fill="#1b8583">ICE</text>
+    <rect x="112" y="445" width="538" height="35" rx="4" fill="#eef7f6"/>
+    <text x="125" y="469" font-size="15" fill="#246865">ICE is required when a Push call rings but has no audio.</text>
+  </g>
+</svg>

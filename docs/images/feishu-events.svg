@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="590" viewBox="0 0 1000 590">
+  <rect width="1000" height="590" fill="#f6f8fb"/>
+  <text x="52" y="53" font-size="28" font-family="Arial, sans-serif" fill="#18283f">Feishu application setup checklist</text>
+  <rect x="54" y="93" width="892" height="442" rx="8" fill="#fff" stroke="#cad4e1"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="82" y="130" width="247" height="365" rx="5" fill="#f4f7fc"/>
+    <text x="111" y="175" font-size="19" fill="#18283f">App navigation</text>
+    <text x="111" y="223" font-size="17" fill="#53637a">Bot capability</text>
+    <rect x="98" y="250" width="211" height="46" rx="4" fill="#eaf1fc"/>
+    <text x="111" y="280" font-size="17" fill="#286cc0">Events &amp; callbacks</text>
+    <text x="111" y="334" font-size="17" fill="#53637a">Permissions</text>
+    <text x="111" y="382" font-size="17" fill="#53637a">Version release</text>
+
+    <text x="373" y="164" font-size="22" fill="#18283f">Events &amp; callbacks</text>
+    <text x="373" y="211" font-size="17" fill="#53637a">Receive events by</text>
+    <rect x="578" y="181" width="288" height="45" rx="4" fill="#edf8f6" stroke="#1c8582"/>
+    <text x="602" y="210" font-size="17" fill="#176b69">Long connection</text>
+    <text x="373" y="282" font-size="17" fill="#53637a">Subscribed event</text>
+    <rect x="373" y="305" width="493" height="57" rx="4" fill="#edf4fb"/>
+    <text x="396" y="340" font-size="17" fill="#18283f">im.message.receive_v1</text>
+    <rect x="373" y="407" width="493" height="76" rx="4" fill="#fff4e6"/>
+    <text x="396" y="438" font-size="15" fill="#715127">After permissions or event changes, publish</text>
+    <text x="396" y="462" font-size="15" fill="#715127">a new app version before testing the robot.</text>
+  </g>
+</svg>
