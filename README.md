@@ -1,5 +1,7 @@
 # EC20 iPhone Voice + SMS Gateway
 
+当前版本：`v0.2.0`，重点是 EC20 音频稳定性迭代：默认推荐串口 PCM，UAC 仅保留为调试路径。
+
 把一张 SIM 卡托管在家中的 Quectel EC20 模块上，让仅支持 eSIM 的
 iPhone 通过互联网继续使用原号码的电话与短信。
 
@@ -22,7 +24,7 @@ EC20 + Debian 11 + Issabel/Asterisk + Groundwire，通过 SIM 托管实现电话
 
 - 公网 IPv6 直连、DNSPod AAAA DDNS 与最小防火墙规则
 - Groundwire Push 来电下的 ICE 音频修复路径
-- EC20 UAC 异常复盘、串口 PCM 音频方案与设备启动固化
+- v0.2.0 音频稳定性迭代：串口 PCM 音频方案与设备启动固化
 - Bark AES-128-CBC 加密通知
 - 飞书长连接机器人、短信历史查询与二次确认发送
 - 短信分类策略及营销仅归档
@@ -30,6 +32,9 @@ EC20 + Debian 11 + Issabel/Asterisk + Groundwire，通过 SIM 托管实现电话
 - 可重复安装脚本与隐私扫描
 
 详细来源、采用理由和与原方案的差异记录在 [REFERENCES.md](REFERENCES.md)。
+
+版本记录见 [CHANGELOG.md](CHANGELOG.md)，v0.2.0 发布说明见
+[RELEASE-v0.2.0.md](RELEASE-v0.2.0.md)。
 
 > 本项目不会把 SIM 转换为 eSIM；iPhone 本身仍需要可用的数据网络，
 > 才能连接家中的语音网关。
@@ -92,7 +97,7 @@ EC20 + Debian 11 + Issabel/Asterisk + Groundwire，通过 SIM 托管实现电话
 5. [Bark 与飞书短信项目](docs/05-sms-bark-feishu.md)
 6. [一键安装与验收](docs/06-install-and-verify.md)
 7. [日常运维与故障定位](docs/07-operations-troubleshooting.md)
-8. [音频问题复盘：从 UAC 切到串口 PCM](docs/08-audio-issue-postmortem.md)
+8. [v0.2.0 音频稳定性迭代：串口 PCM 与启动固化](docs/08-audio-stability-v0.2.0.md)
 
 ## 一键安装覆盖范围
 

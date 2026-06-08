@@ -27,7 +27,7 @@ if command -v ec20-health >/dev/null && [[ -e /dev/ec20-audio || -e /dev/ec20-at
   EC20_EXPECTED_TXGAIN="${EC20_EXPECTED_TXGAIN:-}" \
     ec20-health || warn "EC20 serial PCM health check needs attention"
 else
-  warn "EC20 serial PCM health check not installed/enabled; see docs/08-audio-issue-postmortem.md"
+  warn "EC20 serial PCM health check not installed/enabled; see docs/08-audio-stability-v0.2.0.md"
 fi
 
 python3 - <<'PY'

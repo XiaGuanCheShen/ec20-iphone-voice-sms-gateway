@@ -176,8 +176,8 @@ quec_uac=1
 alsadev=hw:CARD=Android,DEV=0
 ```
 
-但如果出现无声、电流声、爆音、快照恢复后状态变化，优先切回串口 PCM。具体复盘见
-[08. 音频问题复盘：从 UAC 切到串口 PCM](08-audio-issue-postmortem.md)。
+但如果出现无声、电流声、爆音、快照恢复后状态变化，优先切回串口 PCM。具体迭代说明见
+[08. v0.2.0 音频稳定性迭代：串口 PCM 与启动固化](08-audio-stability-v0.2.0.md)。
 
 ## 已知风险
 

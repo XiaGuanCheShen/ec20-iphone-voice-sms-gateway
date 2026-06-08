@@ -39,7 +39,7 @@ sudo -u asterisk sqlite3 /var/lib/ec20-notify/sms.sqlite3 \
 | --- | --- |
 | 模块不见了 | PVE USB 直通、`lsusb`、`/dev/ttyUSB*`、供电 |
 | 电话能响但无声音 | 先跑 `sudo ec20-health`；再分段检查 Groundwire 回声测试、Asterisk 直接 Playback、RTP IPv6 防火墙端口 |
-| 对方听不到你或有电流声/爆音 | 优先怀疑 EC20 UAC 音频路径；按 [08 音频复盘](08-audio-issue-postmortem.md) 切到串口 PCM |
+| 对方听不到你或有电流声/爆音 | 优先怀疑 EC20 UAC 音频路径；按 [08 音频稳定性迭代](08-audio-stability-v0.2.0.md) 切到串口 PCM |
 | 公网 SIP 无法注册 | AAAA 是否更新、IPv6 入站、防火墙 `5160`、Groundwire TCP |
 | Bark 无通知 | Device Key 是否取自推送 URL、Key/IV 是否两端一致 |
 | 飞书不回命令 | 机器人权限、`im.message.receive_v1` 事件、应用版本发布、长连接日志 |
