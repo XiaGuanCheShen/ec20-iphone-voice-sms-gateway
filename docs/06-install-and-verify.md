@@ -11,6 +11,10 @@ sudo asterisk -rx "pjsip show endpoints"
 
 EC20 应可见，手机分机应已在 Issabel 创建。
 
+如果你采用推荐的串口 PCM 音频方案，建议先读
+[02. EC20、VoLTE 与音频路径](02-ec20-volte-uac.md)，确认 `/dev/ec20-audio`
+和 `/dev/ec20-at` 的接口号。
+
 ## 下载并填写配置
 
 ```bash
@@ -56,8 +60,23 @@ sudo bash verify.sh
 - 安装 Python/OpenSSL/SQLite 和飞书 SDK。
 - 创建权限受限的 Bark/飞书配置文件。
 - 安装短信脚本、飞书机器人服务、七日清理 timer。
+- 可选安装 EC20 串口固定别名、Asterisk 启动等待和 `ec20-health`。
 - 可选部署 DNSPod DDNS 与 nftables 规则。
 - 备份被替换的配置到 `/root/ec20-gateway-backups/`。
+
+如果要安装 EC20 设备固化项，在 `gateway.env` 中启用：
+
+```bash
+ENABLE_EC20_DEVICE_GUARD=yes
+EC20_VENDOR_ID=2c7c
+EC20_MODEL_ID=0125
+EC20_AUDIO_INTERFACE=01
+EC20_AT_INTERFACE=02
+EC20_EXPECTED_TXGAIN=-5
+```
+
+脚本只安装 udev 规则、等待脚本和健康检查，不会自动改写 `quectel.conf`。确认接口号后，
+手动把 `/etc/asterisk/quectel.conf` 指向 `/dev/ec20-audio` 和 `/dev/ec20-at`。
 
 ## 绑定飞书
 
@@ -115,3 +134,11 @@ sudo bash verify.sh
 ### 电话
 
 最后重新测一次来电与去电，确认安装短信服务后没有影响语音。
+
+如果安装了 EC20 设备固化项，先运行：
+
+```bash
+sudo ec20-health
+```
+
+再做真实来电和去电测试。

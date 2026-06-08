@@ -9,6 +9,7 @@ sudo journalctl -u ec20-feishu-cleanup.service --since today
 sudo journalctl -u ec20-ddns.service --since today
 sudo asterisk -rx "quectel show devices"
 sudo asterisk -rx "pjsip show contacts"
+sudo ec20-health
 ```
 
 查看本地短信条数，不打印正文：
@@ -37,7 +38,8 @@ sudo -u asterisk sqlite3 /var/lib/ec20-notify/sms.sqlite3 \
 | 现象 | 优先检查 |
 | --- | --- |
 | 模块不见了 | PVE USB 直通、`lsusb`、`/dev/ttyUSB*`、供电 |
-| 电话能响但无声音 | Groundwire NAT Traversal 是否为 ICE，RTP IPv6 防火墙端口 |
+| 电话能响但无声音 | 先跑 `sudo ec20-health`；再分段检查 Groundwire 回声测试、Asterisk 直接 Playback、RTP IPv6 防火墙端口 |
+| 对方听不到你或有电流声/爆音 | 优先怀疑 EC20 UAC 音频路径；按 [08 音频复盘](08-audio-issue-postmortem.md) 切到串口 PCM |
 | 公网 SIP 无法注册 | AAAA 是否更新、IPv6 入站、防火墙 `5160`、Groundwire TCP |
 | Bark 无通知 | Device Key 是否取自推送 URL、Key/IV 是否两端一致 |
 | 飞书不回命令 | 机器人权限、`im.message.receive_v1` 事件、应用版本发布、长连接日志 |
@@ -50,6 +52,10 @@ sudo -u asterisk sqlite3 /var/lib/ec20-notify/sms.sqlite3 \
 
 ```text
 /etc/asterisk/
+/etc/udev/rules.d/99-ec20-quectel.rules
+/etc/systemd/system/asterisk.service.d/
+/usr/local/sbin/ec20-wait-devices
+/usr/local/sbin/ec20-health
 /etc/ec20-bark.conf
 /etc/ec20-feishu.conf
 /etc/ec20-ddns.conf
@@ -66,4 +72,3 @@ sudo -u asterisk sqlite3 /var/lib/ec20-notify/sms.sqlite3 \
 2. 执行 `bash scripts/privacy-scan.sh`。
 3. 更新服务器前备份现有脚本。
 4. 用真实但可控的短信做一次 Bark/飞书/营销路由回归测试。
-

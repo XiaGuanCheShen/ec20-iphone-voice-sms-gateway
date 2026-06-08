@@ -8,7 +8,8 @@
 - 借鉴内容：EC20 模块、Debian 11、Issabel/Asterisk、`asterisk-chan-quectel`、
   Groundwire SIP 客户端和托管 SIM 的整体可行路径。
 - 本项目差异：短信不采用 Telegram；改为 Bark 即时通知 + 飞书历史与指令；
-  增加 IPv6 公网接入、DDNS、防火墙、ICE、加密、分类、七日清理和部署脚本。
+  增加 IPv6 公网接入、DDNS、防火墙、ICE、加密、分类、七日清理、串口 PCM
+  音频固化和部署脚本。
 
 原项目提供了关键的硬件与电话路线，本仓库是在该路线之上的独立增强实现，不声称原创
 原始 EC20 电话方案。
@@ -20,6 +21,8 @@
 - 链接：[tg11/asterisk-chan-quectel](https://github.com/tg11/asterisk-chan-quectel)
 - 用途：EC20 与 Asterisk 的语音和短信通道；本项目使用其
   `quectel sms <device> <number> <message>` 发送命令和 `SMS_BASE64` 入站变量。
+- 音频实践：实机验证中 UAC/USB Audio 路径出现过运行态不稳定；公开方案改为推荐
+  串口 PCM，并用 udev 固定别名与 systemd 启动等待降低重启和快照恢复后的风险。
 - 风险：其示例配置提示通话中接收 SMS 可能引发模块异常；本项目在运维文档中保留
   该风险提示。
 

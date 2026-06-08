@@ -1,0 +1,4 @@
+# EC20 / Quectel stable serial aliases.
+# Adjust ID_USB_INTERFACE_NUM if your module exposes PCM or AT on different interfaces.
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="@@EC20_VENDOR_ID@@", ENV{ID_MODEL_ID}=="@@EC20_MODEL_ID@@", ENV{ID_USB_INTERFACE_NUM}=="@@EC20_AUDIO_INTERFACE@@", SYMLINK+="ec20-audio", GROUP="dialout", MODE="0660"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="@@EC20_VENDOR_ID@@", ENV{ID_MODEL_ID}=="@@EC20_MODEL_ID@@", ENV{ID_USB_INTERFACE_NUM}=="@@EC20_AT_INTERFACE@@", SYMLINK+="ec20-at", GROUP="dialout", MODE="0660"

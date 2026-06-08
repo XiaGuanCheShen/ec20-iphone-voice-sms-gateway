@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+set -u
+
+DEVICE="${EC20_DEVICE:-quectel0}"
+EC20_AUDIO_DEV="${EC20_AUDIO_DEV:-/dev/ec20-audio}"
+EC20_AT_DEV="${EC20_AT_DEV:-/dev/ec20-at}"
+EXPECTED_TXGAIN="${EC20_EXPECTED_TXGAIN:-}"
+
+fail=0
+
+check_file() {
+  local path="$1"
+  if [[ -e "${path}" ]]; then
+    printf '[OK] %s -> %s\n' "${path}" "$(readlink -f "${path}")"
+  else
+    printf '[FAIL] missing %s\n' "${path}"
+    fail=1
+  fi
+}
+
+check_file "${EC20_AUDIO_DEV}"
+check_file "${EC20_AT_DEV}"
+
+if systemctl is-active --quiet asterisk; then
+  echo '[OK] asterisk active'
+else
+  echo '[FAIL] asterisk not active'
+  fail=1
+fi
+
+settings="$(asterisk -rx "quectel show device settings ${DEVICE}" 2>&1)"
+state="$(asterisk -rx "quectel show device state ${DEVICE}" 2>&1)"
+
+redact='s/(IMEI[[:space:]]*: ).*/\1[redacted]/; s/(IMSI[[:space:]]*: ).*/\1[redacted]/; s/(Subscriber Number[[:space:]]*: ).*/\1[redacted]/; s/(Location area code[[:space:]]*: ).*/\1[redacted]/; s/(Cell ID[[:space:]]*: ).*/\1[redacted]/; s/(SMS Service Center[[:space:]]*: ).*/\1[redacted]/'
+
+printf '%s\n' '--- quectel settings ---'
+printf '%s\n' "${settings}" |
+  sed -E "${redact}" |
+  grep -E 'Device|Audio|Data|RX gain|TX gain|Context|Auto delete SMS|Disable SMS|Initial device state' || true
+
+printf '%s\n' '--- quectel state ---'
+printf '%s\n' "${state}" |
+  sed -E "${redact}" |
+  grep -E 'Device|State|Audio|Data|Voice|SMS|GSM Registration Status|RSSI|Tasks in queue|Commands in queue|Calls/Channels|Active' || true
+
+printf '%s\n' "${settings}" | grep -q "Audio[[:space:]]*: ${EC20_AUDIO_DEV}" || {
+  printf '[FAIL] Asterisk is not using %s\n' "${EC20_AUDIO_DEV}"
+  fail=1
+}
+printf '%s\n' "${settings}" | grep -q "Data[[:space:]]*: ${EC20_AT_DEV}" || {
+  printf '[FAIL] Asterisk is not using %s\n' "${EC20_AT_DEV}"
+  fail=1
+}
+if [[ -n "${EXPECTED_TXGAIN}" ]]; then
+  printf '%s\n' "${settings}" | grep -q "TX gain[[:space:]]*: ${EXPECTED_TXGAIN}" ||
+    printf '[WARN] TX gain is not %s\n' "${EXPECTED_TXGAIN}"
+fi
+printf '%s\n' "${state}" | grep -q 'Voice[[:space:]]*: Yes' || {
+  echo '[FAIL] voice capability not ready'
+  fail=1
+}
+printf '%s\n' "${state}" | grep -q 'SMS[[:space:]]*: Yes' || {
+  echo '[FAIL] SMS capability not ready'
+  fail=1
+}
+
+exit "${fail}"

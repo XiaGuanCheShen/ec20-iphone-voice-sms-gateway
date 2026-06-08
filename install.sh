@@ -52,9 +52,13 @@ for path in \
   /usr/local/sbin/ec20-sms-bark \
   /usr/local/sbin/ec20-feishu-bot \
   /usr/local/sbin/ec20-feishu-cleanup \
+  /usr/local/sbin/ec20-wait-devices \
+  /usr/local/sbin/ec20-health \
   /usr/local/lib/ec20/feishu_common.py \
   /etc/ec20-bark.conf \
-  /etc/ec20-feishu.conf; do
+  /etc/ec20-feishu.conf \
+  /etc/udev/rules.d/99-ec20-quectel.rules \
+  /etc/systemd/system/asterisk.service.d/10-ec20-devices.conf; do
   [[ -e "${path}" ]] && cp -a "${path}" "${BACKUP_DIR}/"
 done
 
@@ -62,6 +66,8 @@ install -o root -g root -m 0755 "${ROOT_DIR}/bark_sms_notify.py" /usr/local/sbin
 install -o root -g root -m 0755 "${ROOT_DIR}/feishu_bot.py" /usr/local/sbin/ec20-feishu-bot
 install -o root -g root -m 0755 "${ROOT_DIR}/feishu_cleanup.py" /usr/local/sbin/ec20-feishu-cleanup
 install -o root -g root -m 0644 "${ROOT_DIR}/feishu_common.py" /usr/local/lib/ec20/feishu_common.py
+install -o root -g root -m 0755 "${ROOT_DIR}/scripts/ec20-wait-devices" /usr/local/sbin/ec20-wait-devices
+install -o root -g root -m 0755 "${ROOT_DIR}/scripts/ec20-health" /usr/local/sbin/ec20-health
 
 umask 077
 cat > /etc/ec20-bark.conf <<EOF
@@ -84,6 +90,22 @@ chmod 0640 /etc/ec20-feishu.conf
 install -o root -g root -m 0644 "${ROOT_DIR}/ec20-feishu.service" /etc/systemd/system/ec20-feishu.service
 install -o root -g root -m 0644 "${ROOT_DIR}/ec20-feishu-cleanup.service" /etc/systemd/system/ec20-feishu-cleanup.service
 install -o root -g root -m 0644 "${ROOT_DIR}/ec20-feishu-cleanup.timer" /etc/systemd/system/ec20-feishu-cleanup.timer
+
+if [[ "${ENABLE_EC20_DEVICE_GUARD:-no}" == yes ]]; then
+  mkdir -p /etc/systemd/system/asterisk.service.d
+  sed \
+    -e "s|@@EC20_VENDOR_ID@@|${EC20_VENDOR_ID:-2c7c}|g" \
+    -e "s|@@EC20_MODEL_ID@@|${EC20_MODEL_ID:-0125}|g" \
+    -e "s|@@EC20_AUDIO_INTERFACE@@|${EC20_AUDIO_INTERFACE:-01}|g" \
+    -e "s|@@EC20_AT_INTERFACE@@|${EC20_AT_INTERFACE:-02}|g" \
+    "${ROOT_DIR}/templates/99-ec20-quectel.rules" \
+    > /etc/udev/rules.d/99-ec20-quectel.rules
+  install -o root -g root -m 0644 \
+    "${ROOT_DIR}/systemd/asterisk-ec20-devices.conf" \
+    /etc/systemd/system/asterisk.service.d/10-ec20-devices.conf
+  udevadm control --reload-rules
+  udevadm trigger --subsystem-match=tty || true
+fi
 
 if [[ "${INSTALL_DIALPLAN:-no}" == yes ]]; then
   [[ "${REPLACE_EXTENSIONS_CUSTOM:-no}" == yes ]] ||
@@ -127,6 +149,9 @@ python3 -m py_compile \
   /usr/local/lib/ec20/feishu_common.py
 
 systemctl daemon-reload
+if [[ "${ENABLE_EC20_DEVICE_GUARD:-no}" == yes ]]; then
+  /usr/local/sbin/ec20-wait-devices 45
+fi
 systemctl enable --now ec20-feishu.service ec20-feishu-cleanup.timer
 if [[ "${ENABLE_DNSPOD_DDNS:-no}" == yes ]]; then
   systemctl enable --now ec20-ddns.timer
@@ -134,5 +159,7 @@ if [[ "${ENABLE_DNSPOD_DDNS:-no}" == yes ]]; then
 fi
 
 printf '\nInstalled. Backup: %s\n' "${BACKUP_DIR}"
+if [[ "${ENABLE_EC20_DEVICE_GUARD:-no}" == yes ]]; then
+  printf 'EC20 device guard installed. Point /etc/asterisk/quectel.conf to /dev/ec20-audio and /dev/ec20-at, then restart Asterisk.\n'
+fi
 printf 'Next: send "绑定 %s" to your Feishu robot, then run: sudo bash verify.sh\n' "${FEISHU_BIND_CODE}"
-

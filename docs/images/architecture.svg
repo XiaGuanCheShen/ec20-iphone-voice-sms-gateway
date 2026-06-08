@@ -4,9 +4,9 @@
   <text x="60" y="98" font-size="17" font-family="Arial, sans-serif" fill="#59677d">Public architecture diagram - no live address or credential is shown</text>
   <g font-family="Arial, sans-serif">
     <rect x="70" y="172" width="210" height="160" rx="8" fill="#ffffff" stroke="#c7d1df" stroke-width="2"/>
-    <text x="100" y="215" font-size="22" fill="#152238">China SIM</text>
+    <text x="100" y="215" font-size="22" fill="#152238">SIM Card</text>
     <text x="100" y="251" font-size="18" fill="#435269">EC20 LTE Module</text>
-    <text x="100" y="282" font-size="16" fill="#59677d">VoLTE + UAC audio</text>
+    <text x="100" y="282" font-size="16" fill="#59677d">VoLTE + serial PCM audio</text>
     <text x="100" y="309" font-size="16" fill="#59677d">USB pass-through</text>
 
     <rect x="372" y="145" width="280" height="214" rx="8" fill="#ffffff" stroke="#237b78" stroke-width="3"/>

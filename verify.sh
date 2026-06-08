@@ -22,6 +22,14 @@ else
   warn "quectel0 is not shown; verify EC20 USB pass-through and chan_quectel"
 fi
 
+if command -v ec20-health >/dev/null && [[ -e /dev/ec20-audio || -e /dev/ec20-at ]]; then
+  EC20_DEVICE="${EC20_DEVICE:-quectel0}" \
+  EC20_EXPECTED_TXGAIN="${EC20_EXPECTED_TXGAIN:-}" \
+    ec20-health || warn "EC20 serial PCM health check needs attention"
+else
+  warn "EC20 serial PCM health check not installed/enabled; see docs/08-audio-issue-postmortem.md"
+fi
+
 python3 - <<'PY'
 import sqlite3
 from pathlib import Path
@@ -46,4 +54,3 @@ printf '1. Receive one SMS and confirm Bark/Feishu route.\n'
 printf '2. Send "短信统计" to the Feishu robot.\n'
 printf '3. Send an SMS through the robot using its two-step confirmation.\n'
 printf '4. Call both directions and confirm audio.\n'
-

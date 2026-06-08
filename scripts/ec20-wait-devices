@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TIMEOUT="${1:-45}"
+EC20_AUDIO_DEV="${EC20_AUDIO_DEV:-/dev/ec20-audio}"
+EC20_AT_DEV="${EC20_AT_DEV:-/dev/ec20-at}"
+
+need=("${EC20_AUDIO_DEV}" "${EC20_AT_DEV}")
+
+udevadm settle --timeout=10 || true
+
+end=$((SECONDS + TIMEOUT))
+while (( SECONDS < end )); do
+  ok=1
+  for dev in "${need[@]}"; do
+    [[ -e "${dev}" ]] || ok=0
+  done
+  if (( ok == 1 )); then
+    printf 'EC20 devices ready: %s %s\n' \
+      "$(readlink -f "${EC20_AUDIO_DEV}")" \
+      "$(readlink -f "${EC20_AT_DEV}")"
+    exit 0
+  fi
+  sleep 1
+done
+
+printf 'ERROR: EC20 devices not ready after %ss\n' "${TIMEOUT}" >&2
+ls -l "${EC20_AUDIO_DEV}" "${EC20_AT_DEV}" /dev/ttyUSB* 2>/dev/null >&2 || true
+exit 1

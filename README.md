@@ -22,6 +22,7 @@ EC20 + Debian 11 + Issabel/Asterisk + Groundwire，通过 SIM 托管实现电话
 
 - 公网 IPv6 直连、DNSPod AAAA DDNS 与最小防火墙规则
 - Groundwire Push 来电下的 ICE 音频修复路径
+- EC20 UAC 异常复盘、串口 PCM 音频方案与设备启动固化
 - Bark AES-128-CBC 加密通知
 - 飞书长连接机器人、短信历史查询与二次确认发送
 - 短信分类策略及营销仅归档
@@ -41,7 +42,7 @@ EC20 + Debian 11 + Issabel/Asterisk + Groundwire，通过 SIM 托管实现电话
 | --- | --- |
 | 系统 | Debian 11.11 `amd64` |
 | 电话核心 | Asterisk 16 + `asterisk-chan-quectel` |
-| LTE 模块 | Quectel EC20，VoLTE + UAC 音频 |
+| LTE 模块 | Quectel EC20，VoLTE + 串口 PCM 音频 |
 | SIP 客户端 | Groundwire，Push 来电 |
 | 公网接入 | IPv6 直连 + DNSPod AAAA DDNS |
 | SIP / RTP | TCP/UDP `5160`，UDP `10000-10010` |
@@ -85,12 +86,13 @@ EC20 + Debian 11 + Issabel/Asterisk + Groundwire，通过 SIM 托管实现电话
 第一次搭建建议按顺序执行：
 
 1. [硬件、Debian 和 USB 直通](docs/01-hardware-debian.md)
-2. [EC20、VoLTE 与 UAC 音频](docs/02-ec20-volte-uac.md)
+2. [EC20、VoLTE 与音频路径](docs/02-ec20-volte-uac.md)
 3. [Issabel/Asterisk 与 Groundwire 电话](docs/03-voice-groundwire.md)
 4. [公网 IPv6、DDNS 与防火墙](docs/04-network-security.md)
 5. [Bark 与飞书短信项目](docs/05-sms-bark-feishu.md)
 6. [一键安装与验收](docs/06-install-and-verify.md)
 7. [日常运维与故障定位](docs/07-operations-troubleshooting.md)
+8. [音频问题复盘：从 UAC 切到串口 PCM](docs/08-audio-issue-postmortem.md)
 
 ## 一键安装覆盖范围
 
@@ -110,6 +112,7 @@ sudo bash verify.sh
 - Asterisk `incoming-mobile` SMS 自定义入口
 - 可选 DNSPod IPv6 DDNS
 - 可选最小化 nftables IPv6 公网规则
+- 可选 EC20 串口固定别名、Asterisk 启动等待和健康检查
 
 脚本不会自动替你在 Issabel 网页中创建分机、中继与呼入/呼出路由，也不会自动向
 EC20 写入可能影响固件或网络注册状态的 AT 指令。
